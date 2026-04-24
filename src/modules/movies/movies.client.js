@@ -1,4 +1,4 @@
-// Função auxiliar para fazer requisições a API e tratar erros 
+// Helper para requisições à TMDB com tratamento de erros 
 const fetchTmdbData = async (url) => {
   const response = await fetch(url);
 
