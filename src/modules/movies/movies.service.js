@@ -1,3 +1,5 @@
+const { fetchTmdbData } = require("./movies.client");
+
 // Helpers de formatação de dados (DTOs) para os endpoints relacionados a filmes
 // Helper de DTO para lista de filmes (cards da home)
 const formatMovieList = (movies) => {
@@ -35,18 +37,6 @@ const formatVideosByType = (videos = [], type) => {
       key: video.key,
       url: `https://www.youtube.com/watch?v=${video.key}`,
     }));
-};
-
-// Função auxiliar para fazer requisições a API e tratar erros 
-const fetchTmdbData = async (url) => {
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.status_message || "Erro na TMDB");
-  }
-
-  return response.json();
 };
 
 // Sequência de requisições para os endpoints de listas de filmes que formarão a home movie do site
