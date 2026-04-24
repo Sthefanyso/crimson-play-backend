@@ -36,3 +36,23 @@ exports.getUpcomingMovies = async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar filmes" });
   }
 };
+
+exports.getMoviePreview = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const data = await moviesService.getMoviePreview(movieId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar preview do filme" });
+  }
+};
+
+exports.getMovieDetails = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const data = await moviesService.getMovieDetails(movieId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar detalhes do filme" });
+  }
+};

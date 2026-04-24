@@ -7,5 +7,8 @@ router.get("/trending", moviesController.getTrendingMovies);
 router.get("/popular", moviesController.getPopularMovies);
 router.get("/top-rated", moviesController.getTopRatedMovies);
 router.get("/upcoming", moviesController.getUpcomingMovies);
+router.get("/preview/:movieId", moviesController.getMoviePreview);
+router.get("/details/:movieId", moviesController.getMovieDetails);
+
 
 module.exports = router;
