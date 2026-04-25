@@ -56,3 +56,13 @@ exports.getMovieDetails = async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar detalhes do filme" });
   }
 };
+
+exports.getMovieRecommendations = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const data = await moviesService.getMovieRecommendations(movieId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar recomendações" });
+  }
+};

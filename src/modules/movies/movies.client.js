@@ -50,11 +50,17 @@ const getMovieDetails = (movieId) => {
   );
 };
 
+// Requisição para obter recomendações de filmes similares a um filme específico
+const getMovieRecommendations = (movieId) => {
+  return fetchTmdbData(`/movie/${movieId}/recommendations`);
+};
+
 module.exports = {
   getTrendingMovies,
   getPopularMovies,
   getTopRatedMovies,
   getUpcomingMovies,
   getMoviePreview,
-  getMovieDetails
+  getMovieDetails,
+  getMovieRecommendations
 };

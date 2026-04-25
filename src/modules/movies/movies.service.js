@@ -44,3 +44,9 @@ exports.getMovieDetails = async (movieId) => {
   const data = await moviesClient.getMovieDetails(movieId);
   return MovieDetailsDto(data);
 };
+
+// Requisição para obter recomendações de filmes similares a um filme específico
+exports.getMovieRecommendations = async (movieId) => {
+  const data = await moviesClient.getMovieRecommendations(movieId);
+  return formatMovieList(data.results || []);
+};

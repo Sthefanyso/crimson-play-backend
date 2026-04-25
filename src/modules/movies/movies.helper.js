@@ -1,17 +1,19 @@
+// Configuração de imagens da TMDB
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-// Monta a URL completa de uma imagem da TMDB
+// Helpers de mídia
 const buildImageUrl = (path) => {
   return path ? `${IMAGE_BASE_URL}${path}` : null;
 };
-// Formata uma lista de imagens da TMDB para o formato usado pela API
+
+// Formata lista de imagens
 const formatImagesByType = (images = []) => {
   return images.map((image) => ({
     url: buildImageUrl(image.file_path),
   }));
 };
 
-// Filtra e formata vídeos da TMDB por tipo
+// Formata lista de vídeos
 const formatVideosByType = (videos = [], type) => {
   return videos
     .filter((video) => video.site === "YouTube" && video.type === type)
@@ -23,8 +25,8 @@ const formatVideosByType = (videos = [], type) => {
     }));
 };
 
-// Função para extrair o nome do diretor do filme
-// lógica: se houver mais de um, exibe o primeiro encontrado, se não encontrar nenhum, exibe "Desconhecido"
+// Helpers de informações do filme
+// Extrai informações específicas (diretor e classificação indicativa)
 const getDirector = (credits) => {
   return (
     credits?.crew.find((member) => member.job === "Director")?.name ||
@@ -33,20 +35,52 @@ const getDirector = (credits) => {
 };
 
 const getAgeRating = (releaseDates) => {
-  // Lógica para extrair os dados de classificação indicativa retornados pela TMDB
   const certificationData = releaseDates?.results;
 
-  // Localiza as classificações para Brasil e EUA
   const br = certificationData?.find((c) => c.iso_3166_1 === "BR");
   const us = certificationData?.find((c) => c.iso_3166_1 === "US");
 
-  // Função auxiliar que retorna a classificação válida de um país (se existir)
   const getCertification = (country) =>
     country?.release_dates.find((release) => release.certification)
       ?.certification;
 
-  // Define a classificação final: prioriza a classificação brasileira, se não existir, usa a americana, se nenhuma existir, exibe "Não informado"    
   return getCertification(br) || getCertification(us) || "Não informado";
+};
+
+// Helpers de formatação de campos (runtime, date, status, currency)
+const formatRuntime = (minutes) => {
+  if (!minutes) return null;
+
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+
+  return `${h}h ${m}min`;
+};
+
+const formatDate = (date) => {
+  if (!date) return null;
+
+  return new Date(date).toLocaleDateString("pt-BR");
+};
+
+const formatStatus = (status) => {
+  const statusMap = {
+    Released: "Lançado",
+    "Post Production": "Pós-produção",
+    InProduction: "Em produção",
+    Planned: "Planejado",
+  };
+
+  return statusMap[status] || status;
+};
+
+const formatCurrency = (value) => {
+  if (!value) return null;
+
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "USD",
+  });
 };
 
 module.exports = {
@@ -55,4 +89,8 @@ module.exports = {
   formatVideosByType,
   getDirector,
   getAgeRating,
+  formatRuntime,
+  formatDate,
+  formatStatus,
+  formatCurrency,
 };
