@@ -14,7 +14,9 @@ app.get("/", (req, res) => {
 });
 
 const moviesRoutes = require("./modules/movies/movies.routes");
+const seriesRoutes = require("./modules/series/series.routes");
 
 app.use("/api/movies", moviesRoutes);
+app.use("/api/series", seriesRoutes);
 
 module.exports = app;

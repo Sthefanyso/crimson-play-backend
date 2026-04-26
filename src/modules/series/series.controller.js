@@ -1,0 +1,38 @@
+const seriesService = require("./series.service");
+
+exports.getTrendingSeries = async (req, res) => {
+  try {
+    const data = await seriesService.getTrendingSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar séries" });
+  }
+};
+
+exports.getOnTheAirSeries = async (req, res) => {
+  try {
+    const data = await seriesService.getOnTheAirSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar séries" });
+  }
+};
+
+exports.getPopularSeries = async (req, res) => {
+  try {
+    const data = await seriesService.getPopularSeries();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao buscar séries" });
+  }
+};
+
+exports.getTopRatedSeries = async (req, res) => {
+  try {
+    const data = await seriesService.getTopRatedSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar séries" });
+  }
+};

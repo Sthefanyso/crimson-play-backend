@@ -1,6 +1,5 @@
 const moviesService = require("./movies.service");
 
-
 exports.getTrendingMovies = async (req, res) => {
   try {
     const data = await moviesService.getTrendingMovies();

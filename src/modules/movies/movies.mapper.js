@@ -12,7 +12,7 @@ const {
 } = require("./movies.helper");
 
 // Função para formatar a lista de filmes
-const formatMovieList = (movies) => {
+const formatMovieList = (movies = []) => {
   return {
     filmes: movies.map((movie) => ({
       id: movie.id,
