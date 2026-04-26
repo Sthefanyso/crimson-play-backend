@@ -1,7 +1,7 @@
-// Importa as funções auxiliares de formatação de dados do módulo de séries
+// Importa as funções auxiliares de formatação de dados 
 const {
   buildImageUrl,
-} = require("./series.helper");
+} = require("../../shared/helpers/media.helper");
 
 
 const formatSeriesList = (series = []) => {

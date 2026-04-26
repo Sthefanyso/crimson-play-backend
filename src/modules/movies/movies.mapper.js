@@ -1,15 +1,22 @@
-// Importa as funções auxiliares de formatação de dados do módulo de filmes
+// Importa as funções auxiliares de formatação de dados
 const {
-  buildImageUrl,
-  formatImagesByType,
-  formatVideosByType,
   getDirector,
   getAgeRating,
+} = require("./movies.helper");
+
+const { 
+  buildImageUrl,
+  formatImagesByType,
+  formatVideosByType, 
+} = require("../../shared/helpers/media.helper");
+
+const {
   formatRuntime,
   formatDate,
   formatStatus,
   formatCurrency,
-} = require("./movies.helper");
+} = require("../../shared/helpers/format.helper");
+
 
 // Função para formatar a lista de filmes
 const formatMovieList = (movies = []) => {
