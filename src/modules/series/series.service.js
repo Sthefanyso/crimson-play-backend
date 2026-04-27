@@ -4,6 +4,7 @@ const seriesClient = require("./series.client");
 // Importa as funções de mapeamento para transformar os dados da TMDB no formato da API do Crimson Play
 const {
   formatSeriesList,
+  SeriesPreviewDto,
 } = require("./series.mapper");
 
 // Usa funções auxiliares para montar as requisições
@@ -29,4 +30,10 @@ exports.getPopularSeries = async () => {
 exports.getTopRatedSeries = async () => {
   const data = await seriesClient.getTopRatedSeries();
   return formatSeriesList(data.results || []);
+};
+
+// Requisição para formar o Preview de uma série específica, informações básicas
+exports.getSeriesPreview = async (seriesId) => {
+  const data = await seriesClient.getSeriesPreview(seriesId);
+  return SeriesPreviewDto(data || []);
 };

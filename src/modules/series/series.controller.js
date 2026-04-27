@@ -36,3 +36,13 @@ exports.getTopRatedSeries = async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar séries" });
   }
 };
+
+exports.getSeriesPreview = async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const data = await seriesService.getSeriesPreview(seriesId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar detalhes da série" });
+  }
+};

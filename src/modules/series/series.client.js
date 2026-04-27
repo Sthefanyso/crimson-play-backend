@@ -37,9 +37,15 @@ const getTopRatedSeries = () => {
   return fetchTmdbData("/tv/top_rated");
 };
 
+// Detalhes de uma série específica para formar o Preview
+const getSeriesPreview = (seriesId) => {
+  return fetchTmdbData(`/tv/${seriesId}`);
+}
+
 module.exports = {
   getTrendingSeries,
   getOnTheAirSeries,
   getPopularSeries,
   getTopRatedSeries,
+  getSeriesPreview,
 };
