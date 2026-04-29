@@ -7,6 +7,7 @@ const getDirector = (credits) => {
   );
 };
 
+// Função para obter a classificação indicativa de um filme, priorizando a classificação brasileira (BR) e, se não disponível, a classificação americana (US), se não tiver a informação, retorna "Não informado"
 const getAgeRating = (releaseDates) => {
   const certificationData = releaseDates?.results;
 

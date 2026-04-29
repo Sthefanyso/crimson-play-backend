@@ -1,7 +1,7 @@
 // Importa as funções auxiliares de formatação de dados
 const {
   buildImageUrl,
-  formatImagesByType, 
+  formatImagesByType,
   formatVideosByType,
 } = require("../../shared/helpers/media.helper");
 
@@ -16,6 +16,7 @@ const {
   formatSeriesYears,
   formatSeriesType,
   formatEpisodeRuntime,
+  getSeriesAgeRating,
 } = require("./series.helper");
 
 // Função para formatar o DTO de lista de séries
@@ -78,13 +79,14 @@ const SeriesDetailsDto = (data) => {
       production: (data.production_companies || []).map(
         (company) => company.name,
       ),
+      ageRating: getSeriesAgeRating(data.content_ratings),
       seasons: data.number_of_seasons || 0,
       episodes: data.number_of_episodes || 0,
       genres: (data.genres || []).map((genre) => genre.name),
       episodeRuntime:
         formatEpisodeRuntime(data.episode_run_time) || "Não informado",
     },
-    
+
     // Seção Mídia
     // Imagens e vídeos relacionados a série
     media: {

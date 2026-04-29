@@ -1,5 +1,3 @@
-const { get } = require("./series.routes");
-
 // Variáveis de ambiente para montar as URLs de requisição à TMDB
 const BASE_URL = process.env.TMDB_BASE_URL;
 const API_KEY = process.env.TMDB_API_KEY;
@@ -41,7 +39,7 @@ const getTopRatedSeries = () => {
 
 // Detalhes de uma série específica para formar o Preview
 const getSeriesPreview = (seriesId) => {
-  return fetchTmdbData(`/tv/${seriesId}`, "&append_to_response=credits");
+  return fetchTmdbData(`/tv/${seriesId}`, "append_to_response=content_ratings");
 }
 
 // Detalhes de uma série específica para formar os detalhes completos
