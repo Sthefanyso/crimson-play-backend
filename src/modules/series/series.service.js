@@ -44,3 +44,9 @@ exports.getSeriesDetails = async (seriesId) => {
   const data = await seriesClient.getSeriesDetails(seriesId);
   return SeriesDetailsDto(data || []);
 };
+
+// Requisição para obter recomendações de séries similares a uma série específica
+exports.getSeriesRecommendations = async (seriesId) => {
+  const data = await seriesClient.getSeriesRecommendations(seriesId);
+  return formatSeriesList(data.results || []);
+};

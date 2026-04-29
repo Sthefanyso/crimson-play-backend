@@ -10,5 +10,7 @@ router.get("/popular", seriesController.getPopularSeries);
 router.get("/top-rated", seriesController.getTopRatedSeries);
 router.get("/preview/:seriesId", seriesController.getSeriesPreview);
 router.get("/details/:seriesId", seriesController.getSeriesDetails);
+router.get("/:seriesId/recommendations", seriesController.getSeriesRecommendations);
+
 
 module.exports = router;

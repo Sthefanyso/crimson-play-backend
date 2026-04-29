@@ -56,3 +56,13 @@ exports.getSeriesDetails = async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar detalhes da série" });
   }
 };
+
+exports.getSeriesRecommendations = async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const data = await seriesService.getSeriesRecommendations(seriesId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar recomendações" });
+  }
+};

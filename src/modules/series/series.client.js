@@ -51,6 +51,11 @@ const getSeriesDetails = (seriesId) => {
   );
 }
 
+// Requisição para obter recomendações de séries similares a uma série específica
+const getSeriesRecommendations = (seriesId) => {
+  return fetchTmdbData(`/tv/${seriesId}/recommendations`);
+};
+
 module.exports = {
   getTrendingSeries,
   getOnTheAirSeries,
@@ -58,4 +63,5 @@ module.exports = {
   getTopRatedSeries,
   getSeriesPreview,
   getSeriesDetails,
+  getSeriesRecommendations,
 };
