@@ -16,10 +16,16 @@ const formatDate = (date) => {
 
 const formatStatus = (status) => {
   const statusMap = {
-    Released: "Lançado",
+    // Movies
+    "Released": "Lançado",
     "Post Production": "Pós-produção",
-    InProduction: "Em produção",
-    Planned: "Planejado",
+    "Planned": "Planejado",
+    "Canceled": "Cancelado",
+
+    // Series
+    "Returning Series": "Em exibição",
+    "Ended": "Finalizada",
+    "In Production": "Em produção",
   };
 
   return statusMap[status] || status;
@@ -34,9 +40,33 @@ const formatCurrency = (value) => {
   });
 };
 
+const formatLanguage = (langCode) => {
+  if (!langCode) return "Não informado";
+
+  const name = new Intl.DisplayNames(["pt-BR"], {
+    type: "language",
+  }).of(langCode);
+
+  if (!name) return "Não informado";
+
+  return name[0].toUpperCase() + name.slice(1);
+};
+
+const formatCountry = (countries = []) => {
+  if (!countries.length) return [];
+
+  const formatter = new Intl.DisplayNames(["pt-BR"], {
+    type: "region",
+  });
+
+  return countries.map((code) => formatter.of(code));
+};
+
 module.exports = {
   formatRuntime,
   formatDate,
   formatStatus,
   formatCurrency,
+  formatLanguage,
+  formatCountry,
 };

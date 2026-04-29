@@ -9,6 +9,6 @@ router.get("/on-the-air", seriesController.getOnTheAirSeries);
 router.get("/popular", seriesController.getPopularSeries);
 router.get("/top-rated", seriesController.getTopRatedSeries);
 router.get("/preview/:seriesId", seriesController.getSeriesPreview);
-
+router.get("/details/:seriesId", seriesController.getSeriesDetails);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const seriesClient = require("./series.client");
 const {
   formatSeriesList,
   SeriesPreviewDto,
+  SeriesDetailsDto,
 } = require("./series.mapper");
 
 // Usa funções auxiliares para montar as requisições
@@ -36,4 +37,10 @@ exports.getTopRatedSeries = async () => {
 exports.getSeriesPreview = async (seriesId) => {
   const data = await seriesClient.getSeriesPreview(seriesId);
   return SeriesPreviewDto(data || []);
+};
+
+// Requisição para formar os detalhes de uma série específica, informações completas
+exports.getSeriesDetails = async (seriesId) => {
+  const data = await seriesClient.getSeriesDetails(seriesId);
+  return SeriesDetailsDto(data || []);
 };
