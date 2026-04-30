@@ -64,6 +64,17 @@ const SeriesDetailsDto = (data) => {
       overview: data.overview,
     },
 
+    seasons:{
+      seasons: (data.seasons || []).map((season) => ({
+        id: season.id,
+        name: season.name,
+        poster: buildImageUrl(season.poster_path),
+        airDate: formatDate(season.air_date),
+        episodes: season.episode_count,
+        overview: season.overview || "Sinopse não disponível.",
+      })),
+    }, 
+      
     // Seção Datasheet
     // Informações adicionais para a seção "Ficha Técnica"
     datasheet: {
