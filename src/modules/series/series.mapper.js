@@ -19,6 +19,8 @@ const {
   getSeriesAgeRating,
 } = require("./series.helper");
 
+const { formatCast, formatGuestStars } = require("../../shared/helpers/cast.helper");
+
 // Função para formatar o DTO de lista de séries
 const formatSeriesList = (series = []) => {
   return series.map((serie) => ({
@@ -97,6 +99,10 @@ const SeriesDetailsDto = (data) => {
       episodes: season.episode_count,
   })),  
 
+  cast:{
+      cast: formatCast(data.credits?.cast || []), // formata o elenco principal da série
+  },
+
     // Seção Mídia
     // Imagens e vídeos relacionados a série
     media: {
@@ -155,6 +161,8 @@ const EpisodeDetailsDto = (data) => {
   );
 
   return {
+
+    info:{
     mediaType: "episode",
     id: data.id,
     banner: buildImageUrl(data.still_path),
@@ -164,8 +172,15 @@ const EpisodeDetailsDto = (data) => {
     seasonNumber: data.season_number,
     airDate: formatDate(data.air_date),
     runtime: formatEpisodeRuntime(data.runtime) || "Não informado",
+    director: director ? director.name : "Não informado",
+    writer: writer ? writer.name : "Não informado",
     overview: data.overview || "Sinopse não disponível.",
     rating: data.vote_average ? Number(data.vote_average.toFixed(1)) : 0,
+  },
+
+    cast:{
+      cast: formatGuestStars(data.credits?.guest_stars || []), // formata os convidados do episódio
+    },
   };
 };
 

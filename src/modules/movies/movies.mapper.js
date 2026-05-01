@@ -17,6 +17,7 @@ const {
   formatCurrency,
 } = require("../../shared/helpers/format.helper");
 
+const { formatCast } = require("../../shared/helpers/cast.helper");
 
 // Função para formatar a lista de filmes
 const formatMovieList = (movies = []) => {
@@ -84,6 +85,10 @@ const MovieDetailsDto = (data) => {
       currency: "USD",
       budget: formatCurrency(data.budget),
       revenue: formatCurrency(data.revenue),
+    },
+
+    cast:{
+      cast: formatCast(data.credits?.cast || []), // formata o elenco principal do filme
     },
 
     // Seção Mídia

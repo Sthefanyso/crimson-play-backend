@@ -66,7 +66,9 @@ const getSeasonDetails = async (seriesId, seasonNumber) => {
 // Detalhes de um episódio específico de uma temporada de uma série
 const getEpisodeDetails = async (seriesId, seasonNumber, episodeNumber) => {
   return fetchTmdbData(
-    `/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`);
+    `/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
+    "&append_to_response=credits",
+  );
 };
 
 module.exports = {
