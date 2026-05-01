@@ -66,3 +66,31 @@ exports.getSeriesRecommendations = async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar recomendações" });
   }
 };
+
+exports.getSeasonDetails = async (req, res) => {
+  try {
+    const { seriesId, seasonNumber } = req.params;
+
+    const data = await seriesService.getSeasonDetails(seriesId, seasonNumber);
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar temporada" });
+  }
+};
+
+exports.getEpisodeDetails = async (req, res) => {
+  try {
+    const { seriesId, seasonNumber, episodeNumber } = req.params;
+    const data = await seriesService.getEpisodeDetails(
+      seriesId,
+      seasonNumber,
+      episodeNumber,
+    );
+    res.json(data);
+  } catch (error) {
+    console.error("ERRO REAL EPISODE:", error);
+
+    res.status(500).json({ error: "Erro ao buscar episódio" });
+  }
+};

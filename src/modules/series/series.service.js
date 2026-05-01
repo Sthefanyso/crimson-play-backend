@@ -6,6 +6,8 @@ const {
   formatSeriesList,
   SeriesPreviewDto,
   SeriesDetailsDto,
+  SeasonDetailsDto,
+  EpisodeDetailsDto,
 } = require("./series.mapper");
 
 // Usa funções auxiliares para montar as requisições
@@ -49,4 +51,17 @@ exports.getSeriesDetails = async (seriesId) => {
 exports.getSeriesRecommendations = async (seriesId) => {
   const data = await seriesClient.getSeriesRecommendations(seriesId);
   return formatSeriesList(data.results || []);
+};
+
+// Requisição para obter detalhes de uma temporada específica de uma série
+exports.getSeasonDetails = async (seriesId, seasonNumber) => {
+  const data = await seriesClient.getSeasonDetails(seriesId, seasonNumber);
+  return SeasonDetailsDto(data || []);
+};
+
+// Requisição para obter detalhes de um episódio específico de uma temporada de uma série
+exports.getEpisodeDetails = async (seriesId, seasonNumber, episodeNumber) => {
+
+  const data = await seriesClient.getEpisodeDetails(seriesId, seasonNumber, episodeNumber);
+  return EpisodeDetailsDto(data || []);
 };

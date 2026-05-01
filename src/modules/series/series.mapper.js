@@ -64,17 +64,6 @@ const SeriesDetailsDto = (data) => {
       overview: data.overview,
     },
 
-    seasons:{
-      seasons: (data.seasons || []).map((season) => ({
-        id: season.id,
-        name: season.name,
-        poster: buildImageUrl(season.poster_path),
-        airDate: formatDate(season.air_date),
-        episodes: season.episode_count,
-        overview: season.overview || "Sinopse não disponível.",
-      })),
-    }, 
-      
     // Seção Datasheet
     // Informações adicionais para a seção "Ficha Técnica"
     datasheet: {
@@ -98,6 +87,16 @@ const SeriesDetailsDto = (data) => {
         formatEpisodeRuntime(data.episode_run_time) || "Não informado",
     },
 
+    // Seção Temporadas
+    // Lista de temporadas da série para a seção de detalhes
+    seasons: (data.seasons || []).map((season) => ({
+      mediaType: "season",
+      id: season.id,
+      name: season.name,
+      poster: buildImageUrl(season.poster_path),
+      episodes: season.episode_count,
+  })),  
+
     // Seção Mídia
     // Imagens e vídeos relacionados a série
     media: {
@@ -120,10 +119,60 @@ const SeriesDetailsDto = (data) => {
       },
     },
   };
+}
+
+const SeasonDetailsDto = (data) => {
+  return {
+    mediaType: "season",
+
+    info: {
+      id: data.id,
+      name: data.name,
+      seasonNumber: data.season_number,
+      poster: buildImageUrl(data.poster_path),
+      airDate: formatDate(data.air_date),
+      episodesCount: data.episodes?.length || 0,
+      overview: data.overview || "Sinopse não disponível.",
+    },
+
+    episodes: (data.episodes || []).map((episode) => ({
+      id: episode.id,
+      number: episode.episode_number,
+      name: episode.name || `Episódio ${episode.episode_number}`,
+    })),
+  };
+};
+
+
+const EpisodeDetailsDto = (data) => {
+
+   const director = data.credits?.crew?.find(
+    (person) => person.job === "Director"
+  );
+
+  const writer = data.credits?.crew?.find(
+    (person) => person.job === "Writer"
+  );
+
+  return {
+    mediaType: "episode",
+    id: data.id,
+    banner: buildImageUrl(data.still_path),
+    number: data.episode_number,
+    name: data.name,
+    episodeNumber: data.episode_number,
+    seasonNumber: data.season_number,
+    airDate: formatDate(data.air_date),
+    runtime: formatEpisodeRuntime(data.runtime) || "Não informado",
+    overview: data.overview || "Sinopse não disponível.",
+    rating: data.vote_average ? Number(data.vote_average.toFixed(1)) : 0,
+  };
 };
 
 module.exports = {
   formatSeriesList,
   SeriesPreviewDto,
   SeriesDetailsDto,
-};
+  SeasonDetailsDto,
+  EpisodeDetailsDto,
+}
