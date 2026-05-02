@@ -55,7 +55,9 @@ const formatLanguage = (langCode) => {
 };
 
 const formatCountry = (countries = []) => {
-  if (!countries.length) return [];
+    if (!Array.isArray(countries) || countries.length === 0) {
+    return "Não informado";
+  }
 
   const formatter = new Intl.DisplayNames(["pt-BR"], {
     type: "region",
