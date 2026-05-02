@@ -8,6 +8,8 @@ const buildImageUrl = (path) => {
 
 // Formata lista de imagens
 const formatImagesByType = (images = []) => {
+  if (!Array.isArray(images) || images.length === 0) return [];
+  
   return images.map((image) => ({
     url: buildImageUrl(image.file_path),
   }));
@@ -15,6 +17,8 @@ const formatImagesByType = (images = []) => {
 
 // Formata lista de vídeos
 const formatVideosByType = (videos = [], type) => {
+  if (!Array.isArray(videos) || videos.length === 0) return [];
+
   return videos
     .filter((video) => video.site === "YouTube" && video.type === type)
     .map((video) => ({

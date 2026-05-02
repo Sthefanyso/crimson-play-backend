@@ -15,9 +15,15 @@ const {
   formatDate,
   formatStatus,
   formatCurrency,
+  formatLanguage,
 } = require("../../shared/helpers/format.helper");
 
 const { formatCast } = require("../../shared/helpers/cast.helper");
+
+const { 
+  safeOverview,
+  safeRating,
+  safeMap, } = require("../../shared/helpers/safe.helper");
 
 // Função para formatar a lista de filmes
 const formatMovieList = (movies = []) => {
@@ -26,8 +32,8 @@ const formatMovieList = (movies = []) => {
       id: movie.id,
       title: movie.title,
       poster: buildImageUrl(movie.poster_path),
-      year: movie.release_date?.split("-")[0], // extrai apenas o ano da data de lançamento
-      rating: Number(movie.vote_average.toFixed(1)), // arredonda a nota para 1 casa decimal
+      year: (movie.release_date?.split("-")[0]) || "Não informado", // extrai apenas o ano da data de lançamento
+      rating: safeRating(movie.vote_average),
     })),
   };
 };
@@ -41,10 +47,10 @@ const MoviePreviewDto = (data) => {
     poster: buildImageUrl(data.poster_path),
     director: getDirector(data.credits),
     duration: formatRuntime(data.runtime),
-    year: data.release_date?.split("-")[0], // extrai apenas o ano da data de lançamento
-    rating: Number(data.vote_average.toFixed(1)), // arredonda a nota para 1 casa decimal
-    genres: (data.genres || []).map((genre) => genre.name), // lista os gêneros do filme
-    overview: data.overview,
+    year: (data.release_date?.split("-")[0]) || "Não informado", // extrai apenas o ano da data de lançamento
+    rating: safeRating(data.vote_average),
+    genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros do filme
+    overview: safeOverview(data.overview),
   };
 };
 
@@ -59,12 +65,12 @@ const MovieDetailsDto = (data) => {
       id: data.id,
       title: data.title,
       poster: buildImageUrl(data.poster_path),
-      year: data.release_date?.split("-")[0], // extrai apenas o ano da data de lançamento
+      year: (data.release_date?.split("-")[0]) || "Não informado", // extrai apenas o ano da data de lançamento
       director: getDirector(data.credits),
       duration: formatRuntime(data.runtime),
-      rating: Number(data.vote_average.toFixed(1)), // arredonda a nota para 1 casa decimal
-      genres: (data.genres || []).map((genre) => genre.name),
-      overview: data.overview,
+      rating: safeRating(data.vote_average),
+      genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros do filme
+      overview: safeOverview(data.overview),
     },
 
     // Seção Datasheet
@@ -73,41 +79,38 @@ const MovieDetailsDto = (data) => {
       releaseDate: formatDate(data.release_date), // data de lançamento completa
       status: formatStatus(data.status), // status do filme (ex: "Released", "Post Production", etc.)
       title: data.title,
-      titleOriginal: data.original_title,
+      titleOriginal: (data.original_title) || "Título original não disponível",
       director: getDirector(data.credits),
-      production: data.production_companies
-        .map((company) => company.name)
-        .join(", "), // lista as produtoras separadas por vírgula
+      production: safeMap(data.production_companies, (company) => company.name).join(", ") || "Não informado", // lista as produtoras separadas por vírgula
       duration: formatRuntime(data.runtime),
       ageRating: getAgeRating(data.release_dates),
-      languageOriginal: data.original_language,
-      genres: (data.genres || []).map((genre) => genre.name).join(", "), // lista os gêneros separados por vírgula
+      languageOriginal: formatLanguage(data.original_language),
+      genres: safeMap(data.genres, (genre) => genre.name).join(", ") || "Não informado", // lista os gêneros separados por vírgula
       currency: "USD",
       budget: formatCurrency(data.budget),
       revenue: formatCurrency(data.revenue),
     },
 
-    cast:{
-      cast: formatCast(data.credits?.cast || []), // formata o elenco principal do filme
-    },
+    // Seção Elenco
+    cast: formatCast(data.credits?.cast), // formata o elenco principal do filme,
 
     // Seção Mídia
     // Imagens e vídeos relacionados ao filme
     media: {
       photos: {
-        posters: formatImagesByType(data.images?.posters || []),
-        backdrops: formatImagesByType(data.images?.backdrops || []),
+        posters: formatImagesByType(data.images?.posters),
+        backdrops: formatImagesByType(data.images?.backdrops),
       },
       videos: {
-        trailers: formatVideosByType(data.videos?.results || [], "Trailer"),
-        teasers: formatVideosByType(data.videos?.results || [], "Teaser"),
-        clips: formatVideosByType(data.videos?.results || [], "Clip"),
+        trailers: formatVideosByType(data.videos?.results, "Trailer"),
+        teasers: formatVideosByType(data.videos?.results, "Teaser"),
+        clips: formatVideosByType(data.videos?.results, "Clip"),
         behindTheScenes: formatVideosByType(
-          data.videos?.results || [],
+          data.videos?.results,
           "Behind the Scenes",
         ),
         featurettes: formatVideosByType(
-          data.videos?.results || [],
+          data.videos?.results,
           "Featurette",
         ), // featurettes = extras/especiais
       },

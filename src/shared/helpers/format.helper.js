@@ -1,6 +1,6 @@
 // Helpers de formatação de campos (runtime, date, status, currency)
 const formatRuntime = (minutes) => {
-  if (!minutes) return null;
+  if (!minutes) return "Não informado";
 
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
@@ -9,22 +9,24 @@ const formatRuntime = (minutes) => {
 };
 
 const formatDate = (date) => {
-  if (!date) return null;
+  if (!date) return "Não informado";
 
   return new Date(date).toLocaleDateString("pt-BR");
 };
 
 const formatStatus = (status) => {
+  if (!status) return "Não informado";
+
   const statusMap = {
     // Movies
-    "Released": "Lançado",
+    Released: "Lançado",
     "Post Production": "Pós-produção",
-    "Planned": "Planejado",
-    "Canceled": "Cancelado",
+    Planned: "Planejado",
+    Canceled: "Cancelado",
 
     // Series
     "Returning Series": "Em exibição",
-    "Ended": "Finalizada",
+    Ended: "Finalizada",
     "In Production": "Em produção",
   };
 
@@ -32,7 +34,7 @@ const formatStatus = (status) => {
 };
 
 const formatCurrency = (value) => {
-  if (!value) return null;
+  if (!value) return "Não informado";
 
   return value.toLocaleString("pt-BR", {
     style: "currency",

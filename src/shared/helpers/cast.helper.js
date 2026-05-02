@@ -13,7 +13,7 @@ const formatCastRole = (order) => {
 // Função para mapear os dados do elenco
 const mapActor = (actor) => ({
   id: actor.id,
-  name: actor.name,
+  name: actor.name || "Não informado",
   character: actor.character || "Não informado",
   profile: buildImageUrl(actor.profile_path),
   role: formatCastRole(actor.order),
@@ -28,7 +28,7 @@ const formatCast = (cast = [], limit = 10) => {
 const formatGuestStars = (guestStars = [], limit = 10) => {
   return guestStars.slice(0, limit).map((actor) => ({
     id: actor.id,
-    name: actor.name,
+    name: actor.name || "Não informado",
     character: actor.character || "Não informado",
     profile: buildImageUrl(actor.profile_path),
     role: "Participações",
