@@ -1,8 +1,7 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+import * as seriesController from "./series.controller.js";
 
-const seriesController = require("./series.controller");
-
+const router = Router();
 
 router.get("/trending", seriesController.getTrendingSeries);
 router.get("/on-the-air", seriesController.getOnTheAirSeries);
@@ -14,4 +13,4 @@ router.get("/:seriesId/recommendations", seriesController.getSeriesRecommendatio
 router.get("/:seriesId/seasons/:seasonNumber/episodes/:episodeNumber", seriesController.getEpisodeDetails);
 router.get("/:seriesId/seasons/:seasonNumber", seriesController.getSeasonDetails);
 
-module.exports = router;
+export default router;

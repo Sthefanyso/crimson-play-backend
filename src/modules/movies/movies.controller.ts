@@ -1,15 +1,23 @@
-const moviesService = require("./movies.service");
+import moviesService from "./movies.service";
+import { Request, Response } from "express";
 
-exports.getTrendingMovies = async (req, res) => {
+export const getTrendingMovies = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await moviesService.getTrendingMovies();
+
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: "Erro ao buscar filmes" });
   }
 };
 
-exports.getPopularMovies = async (req, res) => {
+export const getPopularMovies = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await moviesService.getPopularMovies();
     res.json(data);
@@ -18,7 +26,10 @@ exports.getPopularMovies = async (req, res) => {
   }
 };
 
-exports.getTopRatedMovies = async (req, res) => {
+export const getTopRatedMovies = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await moviesService.getTopRatedMovies();
     res.json(data);
@@ -27,7 +38,10 @@ exports.getTopRatedMovies = async (req, res) => {
   }
 };
 
-exports.getUpcomingMovies = async (req, res) => {
+export const getUpcomingMovies = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await moviesService.getUpcomingMovies();
     res.json(data);
@@ -36,7 +50,10 @@ exports.getUpcomingMovies = async (req, res) => {
   }
 };
 
-exports.getMoviePreview = async (req, res) => {
+export const getMoviePreview = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { movieId } = req.params;
     const data = await moviesService.getMoviePreview(movieId);
@@ -46,7 +63,10 @@ exports.getMoviePreview = async (req, res) => {
   }
 };
 
-exports.getMovieDetails = async (req, res) => {
+export const getMovieDetails = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { movieId } = req.params;
     const data = await moviesService.getMovieDetails(movieId);
@@ -56,7 +76,10 @@ exports.getMovieDetails = async (req, res) => {
   }
 };
 
-exports.getMovieRecommendations = async (req, res) => {
+export const getMovieRecommendations = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { movieId } = req.params;
     const data = await moviesService.getMovieRecommendations(movieId);

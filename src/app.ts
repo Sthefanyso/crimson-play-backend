@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Rota de teste
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (_req: Request, res: Response) => {
   res.json({
     message: "API do TMDB conectada ao Crimson Play, funcionou!",
   });

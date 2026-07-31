@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+import * as moviesController from "./movies.controller.js";
 
-const moviesController = require("./movies.controller");
+const router = Router();
 
 router.get("/trending", moviesController.getTrendingMovies);
 router.get("/popular", moviesController.getPopularMovies);
@@ -11,5 +11,4 @@ router.get("/preview/:movieId", moviesController.getMoviePreview);
 router.get("/details/:movieId", moviesController.getMovieDetails);
 router.get("/:movieId/recommendations", moviesController.getMovieRecommendations);
 
-
-module.exports = router;
+export default router;

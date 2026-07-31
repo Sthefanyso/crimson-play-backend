@@ -1,6 +1,10 @@
-const seriesService = require("./series.service");
+import seriesService from "./series.service";
+import { Request, Response } from "express";
 
-exports.getTrendingSeries = async (req, res) => {
+export const getTrendingSeries = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await seriesService.getTrendingSeries();
     res.json(data);
@@ -9,7 +13,10 @@ exports.getTrendingSeries = async (req, res) => {
   }
 };
 
-exports.getOnTheAirSeries = async (req, res) => {
+export const getOnTheAirSeries = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await seriesService.getOnTheAirSeries();
     res.json(data);
@@ -18,7 +25,10 @@ exports.getOnTheAirSeries = async (req, res) => {
   }
 };
 
-exports.getPopularSeries = async (req, res) => {
+export const getPopularSeries = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await seriesService.getPopularSeries();
     res.json(data);
@@ -28,7 +38,10 @@ exports.getPopularSeries = async (req, res) => {
   }
 };
 
-exports.getTopRatedSeries = async (req, res) => {
+export const getTopRatedSeries = async (
+  _req: Request,
+  res: Response
+) => {
   try {
     const data = await seriesService.getTopRatedSeries();
     res.json(data);
@@ -37,7 +50,10 @@ exports.getTopRatedSeries = async (req, res) => {
   }
 };
 
-exports.getSeriesPreview = async (req, res) => {
+export const getSeriesPreview = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { seriesId } = req.params;
     const data = await seriesService.getSeriesPreview(seriesId);
@@ -47,7 +63,10 @@ exports.getSeriesPreview = async (req, res) => {
   }
 };
 
-exports.getSeriesDetails = async (req, res) => {
+export const getSeriesDetails = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { seriesId } = req.params;
     const data = await seriesService.getSeriesDetails(seriesId);
@@ -57,7 +76,10 @@ exports.getSeriesDetails = async (req, res) => {
   }
 };
 
-exports.getSeriesRecommendations = async (req, res) => {
+export const getSeriesRecommendations = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { seriesId } = req.params;
     const data = await seriesService.getSeriesRecommendations(seriesId);
@@ -67,7 +89,10 @@ exports.getSeriesRecommendations = async (req, res) => {
   }
 };
 
-exports.getSeasonDetails = async (req, res) => {
+export const getSeasonDetails = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { seriesId, seasonNumber } = req.params;
 
@@ -79,7 +104,7 @@ exports.getSeasonDetails = async (req, res) => {
   }
 };
 
-exports.getEpisodeDetails = async (req, res) => {
+export const getEpisodeDetails = async (req: Request, res: Response) => {
   try {
     const { seriesId, seasonNumber, episodeNumber } = req.params;
     const data = await seriesService.getEpisodeDetails(
