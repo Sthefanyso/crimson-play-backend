@@ -4,7 +4,7 @@ const API_KEY = process.env.TMDB_API_KEY;
 const LANGUAGE = "pt-BR";
 
 // Helper para requisições à TMDB com tratamento de erros 
-const fetchTmdbData = async (path, params = "") => {
+const fetchTmdbData = async (path: string, params: string = "") => {
   const url = `${BASE_URL}${path}?api_key=${API_KEY}&language=${LANGUAGE}${params}`;
   const response = await fetch(url);
 
@@ -18,32 +18,32 @@ const fetchTmdbData = async (path, params = "") => {
 
 // Funções específicas para cada endpoint da TMDB, usando o helper fetchTmdbData para fazer as requisições
 // Filmes em tendência
-const getTrendingMovies = () => {
+export const getTrendingMovies = () => {
   return fetchTmdbData("/trending/movie/week");
 };
 
 // Filmes populares
-const getPopularMovies = () => {
+export const getPopularMovies = () => {
   return fetchTmdbData("/movie/popular");
 };
 
 // Filmes com melhor avaliação
-const getTopRatedMovies = () => {
+export const getTopRatedMovies = () => {
   return fetchTmdbData("/movie/top_rated");
 };
 
 // Filmes que ainda serão lançados
-const getUpcomingMovies = () => {
+export const getUpcomingMovies = () => {
   return fetchTmdbData("/movie/upcoming");
 };
 
 // Informações básicas de um filme específico para a seção de preview
-const getMoviePreview = (movieId) => {
+export const getMoviePreview = (movieId: number) => {
   return fetchTmdbData(`/movie/${movieId}`, "&append_to_response=credits");
 };
 
 // Informações completas de um filme específico para a seção de detalhes
-const getMovieDetails = (movieId) => {
+export const getMovieDetails = (movieId: number) => {
   return fetchTmdbData(
     `/movie/${movieId}`,
     "&append_to_response=credits,images,videos,release_dates&include_image_language=en,null",
@@ -51,16 +51,6 @@ const getMovieDetails = (movieId) => {
 };
 
 // Requisição para obter recomendações de filmes similares a um filme específico
-const getMovieRecommendations = (movieId) => {
+export const getMovieRecommendations = (movieId: number) => {
   return fetchTmdbData(`/movie/${movieId}/recommendations`);
-};
-
-module.exports = {
-  getTrendingMovies,
-  getPopularMovies,
-  getTopRatedMovies,
-  getUpcomingMovies,
-  getMoviePreview,
-  getMovieDetails,
-  getMovieRecommendations
 };

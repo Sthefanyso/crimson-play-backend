@@ -4,7 +4,7 @@ const API_KEY = process.env.TMDB_API_KEY;
 const LANGUAGE = "pt-BR";
 
 // Helper para requisições à TMDB com tratamento de erros
-const fetchTmdbData = async (path, params = "") => {
+const fetchTmdbData = async (path: string, params: string = "") => {
   const url = `${BASE_URL}${path}?api_key=${API_KEY}&language=${LANGUAGE}${params}`;
   const response = await fetch(url);
 
@@ -18,27 +18,27 @@ const fetchTmdbData = async (path, params = "") => {
 
 // Funções específicas para cada endpoint da TMDB, usando o helper fetchTmdbData para fazer as requisições
 // Séries em tendência
-const getTrendingSeries = () => {
+export const getTrendingSeries = () => {
   return fetchTmdbData("/trending/tv/week");
 };
 
 // Séries que estão no ar
-const getOnTheAirSeries = () => {
+export const getOnTheAirSeries = () => {
   return fetchTmdbData("/tv/on_the_air");
 };
 
 // Séries populares
-const getPopularSeries = () => {
+export const getPopularSeries = () => {
   return fetchTmdbData("/tv/popular");
 };
 
 // Séries com melhor avaliação
-const getTopRatedSeries = () => {
+export const getTopRatedSeries = () => {
   return fetchTmdbData("/tv/top_rated");
 };
 
 // Detalhes de uma série específica para formar o Preview
-const getSeriesPreview = (seriesId) => {
+export const getSeriesPreview = (seriesId: number) => {
   return fetchTmdbData(
     `/tv/${seriesId}`,
     "&append_to_response=content_ratings",
@@ -46,7 +46,7 @@ const getSeriesPreview = (seriesId) => {
 };
 
 // Detalhes de uma série específica para formar os detalhes completos
-const getSeriesDetails = (seriesId) => {
+export const getSeriesDetails = (seriesId: number) => {
   return fetchTmdbData(
     `/tv/${seriesId}`,
     "&append_to_response=content_ratings,images,videos&include_image_language=en,null",
@@ -54,31 +54,19 @@ const getSeriesDetails = (seriesId) => {
 };
 
 // Requisição para obter recomendações de séries similares a uma série específica
-const getSeriesRecommendations = (seriesId) => {
+export const getSeriesRecommendations = (seriesId: number) => {
   return fetchTmdbData(`/tv/${seriesId}/recommendations`);
 };
 
 // Detalhes de uma temporada específica de uma série
-const getSeasonDetails = async (seriesId, seasonNumber) => {
+export const getSeasonDetails = async (seriesId: number, seasonNumber: number) => {
   return fetchTmdbData(`/tv/${seriesId}/season/${seasonNumber}`);
 };
 
 // Detalhes de um episódio específico de uma temporada de uma série
-const getEpisodeDetails = async (seriesId, seasonNumber, episodeNumber) => {
+export const getEpisodeDetails = async (seriesId: number, seasonNumber: number, episodeNumber: number) => {
   return fetchTmdbData(
     `/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
     "&append_to_response=credits",
   );
-};
-
-module.exports = {
-  getTrendingSeries,
-  getOnTheAirSeries,
-  getPopularSeries,
-  getTopRatedSeries,
-  getSeriesPreview,
-  getSeriesDetails,
-  getSeriesRecommendations,
-  getSeasonDetails,
-  getEpisodeDetails,
 };
