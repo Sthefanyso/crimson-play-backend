@@ -1,37 +1,37 @@
 // Importa as funções auxiliares de formatação de dados
-const {
+import {
   buildImageUrl,
   formatImagesByType,
   formatVideosByType,
-} = require("../../shared/helpers/media.helper");
+} from ("../../shared/helpers/media.helper");
 
-const {
+import {
   formatDate,
   formatStatus,
   formatLanguage,
   formatCountry,
-} = require("../../shared/helpers/format.helper");
+} from ("../../shared/helpers/format.helper");
 
-const {
+import {
   formatSeriesYears,
   formatSeriesType,
   formatEpisodeRuntime,
   getSeriesAgeRating,
-} = require("./series.helper");
+} from ("./series.helper");
 
-const {
+import {
   formatCast,
   formatGuestStars,
-} = require("../../shared/helpers/cast.helper");
+} from ("../../shared/helpers/cast.helper");
 
-const {
+import {
   safeOverview,
   safeRating,
   safeMap,
-} = require("../../shared/helpers/safe.helper");
+} from ("../../shared/helpers/safe.helper");
 
 // Função para formatar o DTO de lista de séries
-const formatSeriesList = (series = []) => {
+export const formatSeriesList = (series: any[] = []) => {
   return series.map((serie) => ({
     mediaType: "series",
     id: serie.id,
@@ -43,7 +43,7 @@ const formatSeriesList = (series = []) => {
 };
 
 // Função para formatar o DTO de Preview de série
-const SeriesPreviewDto = (data) => {
+export const SeriesPreviewDto = (data: any) => {
   return {
     mediaType: "series",
     id: data.id,
@@ -53,13 +53,13 @@ const SeriesPreviewDto = (data) => {
     episodes: data.number_of_episodes || 0,
     duration: formatSeriesYears(data.first_air_date, data.last_air_date), // formata os anos de exibição da série
     rating: safeRating(data.vote_average),
-    genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros da série
+    genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros da série
     overview: safeOverview(data.overview),
   };
 };
 
 // Função para formatar o DTO de Details de série
-const SeriesDetailsDto = (data) => {
+export const SeriesDetailsDto = (data: any) => {
   return {
     mediaType: "series",
 
@@ -71,7 +71,7 @@ const SeriesDetailsDto = (data) => {
       poster: buildImageUrl(data.poster_path),
       duration: formatSeriesYears(data.first_air_date, data.last_air_date), // extrai apenas o ano da data de lançamento
       rating: safeRating(data.vote_average),
-      genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros da série
+      genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros da série
       overview: safeOverview(data.overview),
     },
 
@@ -81,22 +81,22 @@ const SeriesDetailsDto = (data) => {
       overview: safeOverview(data.overview),
       firstAirDate: formatDate(data.first_air_date),
       lastAirDate: formatDate(data.last_air_date),
-      creator: safeMap(data.created_by, (creator) => creator.name), // lista os criadores da série
+      creator: safeMap(data.created_by, (creator: any) => creator.name), // lista os criadores da série
       languageOriginal: formatLanguage(data.original_language),
       originCountry: formatCountry(data.origin_country),
       type: formatSeriesType(data.type) || "Não informado",
       status: formatStatus(data.status),
-      production: safeMap(data.production_companies, (company) => company.name),
+      production: safeMap(data.production_companies, (company: any) => company.name),
       ageRating: getSeriesAgeRating(data.content_ratings),
       seasons: data.number_of_seasons || 0,
       episodes: data.number_of_episodes || 0,
-      genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros da série
+      genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros da série
       episodeRuntime: formatEpisodeRuntime(data.episode_run_time),
     },
 
     // Seção Temporadas
     // Lista de temporadas da série para a seção de detalhes
-    seasons: safeMap(data.seasons, (season) => ({
+    seasons: safeMap(data.seasons, (season: any) => ({
       mediaType: "season",
       id: season.id,
       name: season.name,
@@ -128,7 +128,7 @@ const SeriesDetailsDto = (data) => {
   };
 };
 
-const SeasonDetailsDto = (data) => {
+export const SeasonDetailsDto = (data: any) => {
   return {
     mediaType: "season",
 
@@ -142,7 +142,7 @@ const SeasonDetailsDto = (data) => {
       overview: safeOverview(data.overview),
     },
 
-    episodes: safeMap(data.episodes, (episode) => ({
+    episodes: safeMap(data.episodes, (episode: any) => ({
       id: episode.id,
       number: episode.episode_number || 0,
       name: data.name || `Episódio ${data.episode_number || ""}`.trim(),
@@ -150,12 +150,12 @@ const SeasonDetailsDto = (data) => {
   };
 };
 
-const EpisodeDetailsDto = (data) => {
+export const EpisodeDetailsDto = (data: any) => {
   const director = data.credits?.crew?.find(
-    (person) => person.job === "Director",
+    (person: any) => person.job === "Director",
   );
 
-  const writer = data.credits?.crew?.find((person) => person.job === "Writer");
+  const writer = data.credits?.crew?.find((person: any) => person.job === "Writer");
 
   return {
     info: {
@@ -178,10 +178,3 @@ const EpisodeDetailsDto = (data) => {
   };
 };
 
-module.exports = {
-  formatSeriesList,
-  SeriesPreviewDto,
-  SeriesDetailsDto,
-  SeasonDetailsDto,
-  EpisodeDetailsDto,
-};

@@ -1,32 +1,25 @@
 // Importa as funções auxiliares de formatação de dados
-const {
-  getDirector,
-  getAgeRating,
-} = require("./movies.helper");
+import { getDirector, getAgeRating} from "./movies.helper";
 
-const { 
-  buildImageUrl,
-  formatImagesByType,
-  formatVideosByType, 
-} = require("../../shared/helpers/media.helper");
+import { buildImageUrl, formatImagesByType, formatVideosByType} from "../../shared/helpers/media.helper");
 
-const {
+import {
   formatRuntime,
   formatDate,
   formatStatus,
   formatCurrency,
-  formatLanguage,
-} = require("../../shared/helpers/format.helper");
+  formatLanguage
+} from "../../shared/helpers/format.helper";
 
-const { formatCast } = require("../../shared/helpers/cast.helper");
+import { formatCast } from ("../../shared/helpers/cast.helper");
 
-const { 
+import { 
   safeOverview,
   safeRating,
-  safeMap, } = require("../../shared/helpers/safe.helper");
+  safeMap } from ("../../shared/helpers/safe.helper");
 
 // Função para formatar a lista de filmes
-const formatMovieList = (movies = []) => {
+export const formatMovieList = (movies: any[] = []) => {
   return {
     filmes: movies.map((movie) => ({
       id: movie.id,
@@ -39,7 +32,7 @@ const formatMovieList = (movies = []) => {
 };
 
 // Função para formatar o DTO de Preview
-const MoviePreviewDto = (data) => {
+export const MoviePreviewDto = (data: any) => {
   return {
     mediaType: "movie",
     id: data.id,
@@ -49,13 +42,13 @@ const MoviePreviewDto = (data) => {
     duration: formatRuntime(data.runtime),
     year: (data.release_date?.split("-")[0]) || "Não informado", // extrai apenas o ano da data de lançamento
     rating: safeRating(data.vote_average),
-    genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros do filme
+    genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros do filme
     overview: safeOverview(data.overview),
   };
 };
 
 // Função para formatar o DTO de Details
-const MovieDetailsDto = (data) => {
+export const MovieDetailsDto = (data: any) => {
   return {
     mediaType: "movie",
 
@@ -69,7 +62,7 @@ const MovieDetailsDto = (data) => {
       director: getDirector(data.credits),
       duration: formatRuntime(data.runtime),
       rating: safeRating(data.vote_average),
-      genres: safeMap(data.genres, (genre) => genre.name), // lista os gêneros do filme
+      genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros do filme
       overview: safeOverview(data.overview),
     },
 
@@ -81,11 +74,11 @@ const MovieDetailsDto = (data) => {
       title: data.title,
       titleOriginal: (data.original_title) || "Título original não disponível",
       director: getDirector(data.credits),
-      production: safeMap(data.production_companies, (company) => company.name).join(", ") || "Não informado", // lista as produtoras separadas por vírgula
+      production: safeMap(data.production_companies, (company: any) => company.name).join(", ") || "Não informado", // lista as produtoras separadas por vírgula
       duration: formatRuntime(data.runtime),
       ageRating: getAgeRating(data.release_dates),
       languageOriginal: formatLanguage(data.original_language),
-      genres: safeMap(data.genres, (genre) => genre.name).join(", ") || "Não informado", // lista os gêneros separados por vírgula
+      genres: safeMap(data.genres, (genre: any) => genre.name).join(", ") || "Não informado", // lista os gêneros separados por vírgula
       currency: "USD",
       budget: formatCurrency(data.budget),
       revenue: formatCurrency(data.revenue),
@@ -116,10 +109,4 @@ const MovieDetailsDto = (data) => {
       },
     },
   };
-};
-
-module.exports = {
-  formatMovieList,
-  MoviePreviewDto,
-  MovieDetailsDto,
 };
