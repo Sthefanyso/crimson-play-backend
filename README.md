@@ -24,18 +24,75 @@ src/
     series/
   shared/
     helpers/
+    types/
+  
+  app.ts
+  server.ts
 ```
+Organização dos módulos (movies-series):
+
+```
+movies/
+  movies.client.ts
+  movies.controller.ts
+  movies.helper.ts
+  movies.mapper.ts
+  movies.routes.ts
+  movies.service.ts
+
+series/
+  series.client.ts
+  series.controller.ts
+  series.helper.ts
+  series.mapper.ts
+  series.routes.ts
+  series.service.ts
+
+shared/ 
+  helpers/
+    cast.helper.ts
+    format.helper.ts
+    media.helper.ts
+    safe.helper.ts
+  
+  types/
+    params.types.ts
+
+```
+
+Cada módulo segue uma arquitetura baseada em responsabilidades:
+
+- **client**: comunicação com APIs externas ou fontes de dados.
+- **controller**: gerenciamento das requisições HTTP e respostas.
+- **service**: regras de negócio e processamento dos dados.
+- **mapper**: transformação e padronização dos dados recebidos.
+- **helper**: funções auxiliares reutilizáveis dentro do módulo.
+- **routes**: definição dos endpoints da API.
+
+### Shared
+
+A pasta `shared` contém recursos utilizados pelos dois módulos da aplicação (tanto movies quanto series):
+
+- **helpers**: funções utilitárias reutilizáveis.
+- **types**: definições de tipos e interfaces compartilhadas entre módulos.
+
 
 ## 🔗 Rotas principais
 
 ### Movies
 - GET /api/movies/trending
+- GET /api/movies/popular
+- GET /api/movies/top-rated
+- GET /api/movies/up-coming
 - GET /api/movies/preview/:movieId
 - GET /api/movies/details/:movieId
 - GET /api/movies/:movieId/recommendations
 
 ### Series
 - GET /api/series/trending
+- GET /api/series/on-the-air
+- GET /api/series/popular
+- GET /api/series/top-rated
 - GET /api/series/preview/:seriesId
 - GET /api/series/details/:seriesId
 - GET /api/series/:seriesId/recommendations
