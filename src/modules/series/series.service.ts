@@ -35,31 +35,31 @@ export const getTopRatedSeries = async () => {
 };
 
 // Requisição para formar o Preview de uma série específica, informações básicas
-export const getSeriesPreview = async (seriesId) => {
+export const getSeriesPreview = async (seriesId: string) => {
   const data = await seriesClient.getSeriesPreview(seriesId);
   return SeriesPreviewDto(data || []);
 };
 
 // Requisição para formar os detalhes de uma série específica, informações completas
-export const getSeriesDetails = async (seriesId) => {
+export const getSeriesDetails = async (seriesId: string) => {
   const data = await seriesClient.getSeriesDetails(seriesId);
   return SeriesDetailsDto(data || []);
 };
 
 // Requisição para obter recomendações de séries similares a uma série específica
-export const getSeriesRecommendations = async (seriesId) => {
+export const getSeriesRecommendations = async (seriesId: string) => {
   const data = await seriesClient.getSeriesRecommendations(seriesId);
   return formatSeriesList(data.results || []);
 };
 
 // Requisição para obter detalhes de uma temporada específica de uma série
-export const getSeasonDetails = async (seriesId, seasonNumber) => {
+export const getSeasonDetails = async (seriesId: string, seasonNumber: string) => {
   const data = await seriesClient.getSeasonDetails(seriesId, seasonNumber);
   return SeasonDetailsDto(data || []);
 };
 
 // Requisição para obter detalhes de um episódio específico de uma temporada de uma série
-export const getEpisodeDetails = async (seriesId, seasonNumber, episodeNumber) => {
+export const getEpisodeDetails = async (seriesId: string, seasonNumber: string, episodeNumber: string) => {
 
   const data = await seriesClient.getEpisodeDetails(seriesId, seasonNumber, episodeNumber);
   return EpisodeDetailsDto(data || []);

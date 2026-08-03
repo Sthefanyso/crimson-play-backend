@@ -1,5 +1,6 @@
-import seriesService from "./series.service";
+import * as seriesService from "./series.service";
 import { Request, Response } from "express";
+import { SeriesParams, SeasonParams, EpisodeParams } from "../../shared/types/params.types";
 
 export const getTrendingSeries = async (
   _req: Request,
@@ -51,7 +52,7 @@ export const getTopRatedSeries = async (
 };
 
 export const getSeriesPreview = async (
-  req: Request,
+  req: Request<SeriesParams>,
   res: Response
 ) => {
   try {
@@ -64,7 +65,7 @@ export const getSeriesPreview = async (
 };
 
 export const getSeriesDetails = async (
-  req: Request,
+  req: Request<SeriesParams>,
   res: Response
 ) => {
   try {
@@ -77,7 +78,7 @@ export const getSeriesDetails = async (
 };
 
 export const getSeriesRecommendations = async (
-  req: Request,
+  req: Request<SeriesParams>,
   res: Response
 ) => {
   try {
@@ -90,7 +91,7 @@ export const getSeriesRecommendations = async (
 };
 
 export const getSeasonDetails = async (
-  req: Request,
+  req: Request<SeasonParams>,
   res: Response
 ) => {
   try {
@@ -104,7 +105,7 @@ export const getSeasonDetails = async (
   }
 };
 
-export const getEpisodeDetails = async (req: Request, res: Response) => {
+export const getEpisodeDetails = async (req: Request<EpisodeParams>, res: Response) => {
   try {
     const { seriesId, seasonNumber, episodeNumber } = req.params;
     const data = await seriesService.getEpisodeDetails(

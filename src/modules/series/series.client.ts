@@ -38,7 +38,7 @@ export const getTopRatedSeries = () => {
 };
 
 // Detalhes de uma série específica para formar o Preview
-export const getSeriesPreview = (seriesId: number) => {
+export const getSeriesPreview = (seriesId: string) => {
   return fetchTmdbData(
     `/tv/${seriesId}`,
     "&append_to_response=content_ratings",
@@ -46,7 +46,7 @@ export const getSeriesPreview = (seriesId: number) => {
 };
 
 // Detalhes de uma série específica para formar os detalhes completos
-export const getSeriesDetails = (seriesId: number) => {
+export const getSeriesDetails = (seriesId: string) => {
   return fetchTmdbData(
     `/tv/${seriesId}`,
     "&append_to_response=content_ratings,images,videos&include_image_language=en,null",
@@ -54,17 +54,17 @@ export const getSeriesDetails = (seriesId: number) => {
 };
 
 // Requisição para obter recomendações de séries similares a uma série específica
-export const getSeriesRecommendations = (seriesId: number) => {
+export const getSeriesRecommendations = (seriesId: string) => {
   return fetchTmdbData(`/tv/${seriesId}/recommendations`);
 };
 
 // Detalhes de uma temporada específica de uma série
-export const getSeasonDetails = async (seriesId: number, seasonNumber: number) => {
+export const getSeasonDetails = async (seriesId: string, seasonNumber: string) => {
   return fetchTmdbData(`/tv/${seriesId}/season/${seasonNumber}`);
 };
 
 // Detalhes de um episódio específico de uma temporada de uma série
-export const getEpisodeDetails = async (seriesId: number, seasonNumber: number, episodeNumber: number) => {
+export const getEpisodeDetails = async (seriesId: string, seasonNumber: string, episodeNumber: string) => {
   return fetchTmdbData(
     `/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
     "&append_to_response=credits",

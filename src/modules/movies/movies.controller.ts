@@ -1,5 +1,6 @@
-import moviesService from "./movies.service";
+import * as moviesService from "./movies.service";
 import { Request, Response } from "express";
+import { MovieParams } from "../../shared/types/params.types";
 
 export const getTrendingMovies = async (
   _req: Request,
@@ -51,7 +52,7 @@ export const getUpcomingMovies = async (
 };
 
 export const getMoviePreview = async (
-  req: Request,
+  req: Request<MovieParams>,
   res: Response
 ) => {
   try {
@@ -64,7 +65,7 @@ export const getMoviePreview = async (
 };
 
 export const getMovieDetails = async (
-  req: Request,
+  req: Request<MovieParams>,
   res: Response
 ) => {
   try {
@@ -77,7 +78,7 @@ export const getMovieDetails = async (
 };
 
 export const getMovieRecommendations = async (
-  req: Request,
+  req: Request<MovieParams>,
   res: Response
 ) => {
   try {

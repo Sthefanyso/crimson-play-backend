@@ -38,12 +38,12 @@ export const getUpcomingMovies = () => {
 };
 
 // Informações básicas de um filme específico para a seção de preview
-export const getMoviePreview = (movieId: number) => {
+export const getMoviePreview = (movieId: string) => {
   return fetchTmdbData(`/movie/${movieId}`, "&append_to_response=credits");
 };
 
 // Informações completas de um filme específico para a seção de detalhes
-export const getMovieDetails = (movieId: number) => {
+export const getMovieDetails = (movieId: string) => {
   return fetchTmdbData(
     `/movie/${movieId}`,
     "&append_to_response=credits,images,videos,release_dates&include_image_language=en,null",
@@ -51,6 +51,6 @@ export const getMovieDetails = (movieId: number) => {
 };
 
 // Requisição para obter recomendações de filmes similares a um filme específico
-export const getMovieRecommendations = (movieId: number) => {
+export const getMovieRecommendations = (movieId: string) => {
   return fetchTmdbData(`/movie/${movieId}/recommendations`);
 };

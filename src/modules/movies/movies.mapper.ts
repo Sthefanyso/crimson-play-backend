@@ -1,7 +1,7 @@
 // Importa as funções auxiliares de formatação de dados
 import { getDirector, getAgeRating} from "./movies.helper";
 
-import { buildImageUrl, formatImagesByType, formatVideosByType} from "../../shared/helpers/media.helper");
+import { buildImageUrl, formatImagesByType, formatVideosByType} from "../../shared/helpers/media.helper";
 
 import {
   formatRuntime,
@@ -11,12 +11,12 @@ import {
   formatLanguage
 } from "../../shared/helpers/format.helper";
 
-import { formatCast } from ("../../shared/helpers/cast.helper");
+import { formatCast } from "../../shared/helpers/cast.helper";
 
 import { 
   safeOverview,
   safeRating,
-  safeMap } from ("../../shared/helpers/safe.helper");
+  safeMap } from "../../shared/helpers/safe.helper";
 
 // Função para formatar a lista de filmes
 export const formatMovieList = (movies: any[] = []) => {

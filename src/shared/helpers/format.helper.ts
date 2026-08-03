@@ -54,7 +54,7 @@ export const formatLanguage = (langCode: string | null | undefined) => {
   return name[0].toUpperCase() + name.slice(1);
 };
 
-export const formatCountry = (countries = []) => {
+export const formatCountry = (countries: string[] = []) => {
     if (!Array.isArray(countries) || countries.length === 0) {
     return "Não informado";
   }

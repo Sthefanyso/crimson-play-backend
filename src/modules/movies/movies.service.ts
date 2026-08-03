@@ -30,19 +30,19 @@ export const getUpcomingMovies = async () => {
 };
 
 // Requisição para formar o Preview de um filme específico, informações básicas
-export const getMoviePreview = async (movieId) => {
+export const getMoviePreview = async (movieId: string) => {
   const data = await moviesClient.getMoviePreview(movieId);
   return MoviePreviewDto(data);
 };
 
 // Requisição para obter detalhes de um filme específico, informações completas
-export const getMovieDetails = async (movieId) => {
+export const getMovieDetails = async (movieId: string) => {
   const data = await moviesClient.getMovieDetails(movieId);
   return MovieDetailsDto(data);
 };
 
 // Requisição para obter recomendações de filmes similares a um filme específico
-export const getMovieRecommendations = async (movieId) => {
+export const getMovieRecommendations = async (movieId: string) => {
   const data = await moviesClient.getMovieRecommendations(movieId);
   return formatMovieList(data.results || []);
 };

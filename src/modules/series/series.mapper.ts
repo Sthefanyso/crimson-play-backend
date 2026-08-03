@@ -3,32 +3,32 @@ import {
   buildImageUrl,
   formatImagesByType,
   formatVideosByType,
-} from ("../../shared/helpers/media.helper");
+} from "../../shared/helpers/media.helper";
 
 import {
   formatDate,
   formatStatus,
   formatLanguage,
   formatCountry,
-} from ("../../shared/helpers/format.helper");
+} from "../../shared/helpers/format.helper";
 
 import {
   formatSeriesYears,
   formatSeriesType,
   formatEpisodeRuntime,
   getSeriesAgeRating,
-} from ("./series.helper");
+} from "./series.helper";
 
 import {
   formatCast,
   formatGuestStars,
-} from ("../../shared/helpers/cast.helper");
+} from "../../shared/helpers/cast.helper";
 
 import {
   safeOverview,
   safeRating,
   safeMap,
-} from ("../../shared/helpers/safe.helper");
+} from "../../shared/helpers/safe.helper";
 
 // Função para formatar o DTO de lista de séries
 export const formatSeriesList = (series: any[] = []) => {
