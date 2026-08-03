@@ -1,10 +1,11 @@
-// Variáveis de ambiente para montar as URLs de requisição à TMDB
-const BASE_URL = process.env.TMDB_BASE_URL;
-const API_KEY = process.env.TMDB_API_KEY;
 const LANGUAGE = "pt-BR";
 
 // Helper para requisições à TMDB com tratamento de erros
 const fetchTmdbData = async (path: string, params: string = "") => {
+  // Variáveis de ambiente para montar as URLs de requisição à TMDB
+  const BASE_URL = process.env.TMDB_BASE_URL;
+  const API_KEY = process.env.TMDB_API_KEY;
+
   const url = `${BASE_URL}${path}?api_key=${API_KEY}&language=${LANGUAGE}${params}`;
   const response = await fetch(url);
 
@@ -59,12 +60,19 @@ export const getSeriesRecommendations = (seriesId: string) => {
 };
 
 // Detalhes de uma temporada específica de uma série
-export const getSeasonDetails = async (seriesId: string, seasonNumber: string) => {
+export const getSeasonDetails = async (
+  seriesId: string,
+  seasonNumber: string,
+) => {
   return fetchTmdbData(`/tv/${seriesId}/season/${seasonNumber}`);
 };
 
 // Detalhes de um episódio específico de uma temporada de uma série
-export const getEpisodeDetails = async (seriesId: string, seasonNumber: string, episodeNumber: string) => {
+export const getEpisodeDetails = async (
+  seriesId: string,
+  seasonNumber: string,
+  episodeNumber: string,
+) => {
   return fetchTmdbData(
     `/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
     "&append_to_response=credits",
