@@ -1,11 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express, { Request, Response } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 
 import moviesRoutes from "./modules/movies/movies.routes";
 import seriesRoutes from "./modules/series/series.routes";
-
-dotenv.config();
 
 const app = express();
 

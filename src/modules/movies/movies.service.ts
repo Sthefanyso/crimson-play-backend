@@ -2,7 +2,11 @@
 import * as moviesClient from "./movies.client";
 
 // Importa as funções de mapeamento para transformar os dados da TMDB no formato da API do Crimson Play
-import { formatMovieList, MoviePreviewDto, MovieDetailsDto } from "./movies.mapper";
+import {
+  formatMovieList,
+  MoviePreviewDto,
+  MovieDetailsDto,
+} from "./movies.mapper";
 
 // Usa funções auxiliares para montar as requisições
 // Requisição para obter filmes em tendência
