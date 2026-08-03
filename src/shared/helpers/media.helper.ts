@@ -2,12 +2,12 @@
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 // Helpers de mídia
-const buildImageUrl = (path) => {
+export const buildImageUrl = (path: string | null | undefined) => {
   return path ? `${IMAGE_BASE_URL}${path}` : null;
 };
 
 // Formata lista de imagens
-const formatImagesByType = (images = []) => {
+export const formatImagesByType = (images: any[] = []) => {
   if (!Array.isArray(images) || images.length === 0) return [];
   
   return images.map((image) => ({
@@ -16,7 +16,7 @@ const formatImagesByType = (images = []) => {
 };
 
 // Formata lista de vídeos
-const formatVideosByType = (videos = [], type) => {
+export const formatVideosByType = (videos: any[] = [], type: string) => {
   if (!Array.isArray(videos) || videos.length === 0) return [];
 
   return videos
@@ -27,10 +27,4 @@ const formatVideosByType = (videos = [], type) => {
       key: video.key,
       url: `https://www.youtube.com/watch?v=${video.key}`,
     }));
-};
-
-module.exports = {
-  buildImageUrl,
-  formatImagesByType,
-  formatVideosByType,
 };

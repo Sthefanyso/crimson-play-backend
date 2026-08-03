@@ -1,5 +1,5 @@
 // Helpers de formatação de campos (runtime, date, status, currency)
-const formatRuntime = (minutes) => {
+export const formatRuntime = (minutes: number | null | undefined) => {
   if (!minutes) return "Não informado";
 
   const h = Math.floor(minutes / 60);
@@ -8,16 +8,16 @@ const formatRuntime = (minutes) => {
   return `${h}h ${m}min`;
 };
 
-const formatDate = (date) => {
+export const formatDate = (date: Date | null | undefined) => {
   if (!date) return "Não informado";
 
   return new Date(date).toLocaleDateString("pt-BR");
 };
 
-const formatStatus = (status) => {
+export const formatStatus = (status: string | null | undefined) => {
   if (!status) return "Não informado";
 
-  const statusMap = {
+  const statusMap: Record<string, string> = {
     // Movies
     Released: "Lançado",
     "Post Production": "Pós-produção",
@@ -33,7 +33,7 @@ const formatStatus = (status) => {
   return statusMap[status] || status;
 };
 
-const formatCurrency = (value) => {
+export const formatCurrency = (value: number | null | undefined) => {
   if (!value) return "Não informado";
 
   return value.toLocaleString("pt-BR", {
@@ -42,7 +42,7 @@ const formatCurrency = (value) => {
   });
 };
 
-const formatLanguage = (langCode) => {
+export const formatLanguage = (langCode: string | null | undefined) => {
   if (!langCode) return "Não informado";
 
   const name = new Intl.DisplayNames(["pt-BR"], {
@@ -54,7 +54,7 @@ const formatLanguage = (langCode) => {
   return name[0].toUpperCase() + name.slice(1);
 };
 
-const formatCountry = (countries = []) => {
+export const formatCountry = (countries = []) => {
     if (!Array.isArray(countries) || countries.length === 0) {
     return "Não informado";
   }
@@ -64,13 +64,4 @@ const formatCountry = (countries = []) => {
   });
 
   return countries.map((code) => formatter.of(code));
-};
-
-module.exports = {
-  formatRuntime,
-  formatDate,
-  formatStatus,
-  formatCurrency,
-  formatLanguage,
-  formatCountry,
 };
