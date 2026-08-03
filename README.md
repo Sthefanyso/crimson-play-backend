@@ -9,7 +9,8 @@ API backend desenvolvida em Node.js + Express que consome a API do TMDB para for
 - Node.js
 - Express
 - TMDB API
-- JavaScript (CommonJS)
+- TypeScript
+- ES Modules
 
 ---
 
