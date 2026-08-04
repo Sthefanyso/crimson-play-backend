@@ -1,4 +1,4 @@
-const { buildImageUrl } = require("./media.helper");
+import { buildImageUrl } from "./media.helper";
 
 // Função para formatar o papel do ator com base na ordem de crédito
 const formatCastRole = (order: number | null | undefined) => {
@@ -20,12 +20,12 @@ const mapActor = (actor: any) => ({
 });
 
 // Função para formatar o elenco principal de um filme ou série, limitando a 10 atores
-export const formatCast = (cast: any[] = [], limit = 10) => {
+export const formatCast = (cast: any[] = [], limit: number = 10) => {
   return cast.slice(0, limit).map(mapActor);
 };
 
 // Função para formatar os atores convidados de um episódio, limitando a 10 atores
-export const formatGuestStars = (guestStars: any[] = [], limit = 10) => {
+export const formatGuestStars = (guestStars: any[] = [], limit: number = 10) => {
   return guestStars.slice(0, limit).map((actor) => ({
     id: actor.id,
     name: actor.name || "Não informado",

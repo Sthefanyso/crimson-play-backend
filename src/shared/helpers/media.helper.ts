@@ -2,12 +2,12 @@
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 // Helpers de mídia
-export const buildImageUrl = (path: string | null | undefined) => {
+export const buildImageUrl = (path: string | null | undefined): string | null => {
   return path ? `${IMAGE_BASE_URL}${path}` : null;
 };
 
 // Formata lista de imagens
-export const formatImagesByType = (images: any[] = []) => {
+export const formatImagesByType = (images: any[] = []): { url: string | null }[] => {
   if (!Array.isArray(images) || images.length === 0) return [];
   
   return images.map((image) => ({

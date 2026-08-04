@@ -8,13 +8,13 @@ export const formatRuntime = (minutes: number | null | undefined) => {
   return `${h}h ${m}min`;
 };
 
-export const formatDate = (date: Date | null | undefined) => {
+export const formatDate = (date: string | null | undefined) => {
   if (!date) return "Não informado";
 
   return new Date(date).toLocaleDateString("pt-BR");
 };
 
-export const formatStatus = (status: string | null | undefined) => {
+export const formatStatus = (status: string | null | undefined): string => {
   if (!status) return "Não informado";
 
   const statusMap: Record<string, string> = {
@@ -30,10 +30,10 @@ export const formatStatus = (status: string | null | undefined) => {
     "In Production": "Em produção",
   };
 
-  return statusMap[status] || status;
+  return statusMap[status] ?? status;
 };
 
-export const formatCurrency = (value: number | null | undefined) => {
+export const formatCurrency = (value: number | null | undefined): string => {
   if (!value) return "Não informado";
 
   return value.toLocaleString("pt-BR", {
@@ -42,7 +42,7 @@ export const formatCurrency = (value: number | null | undefined) => {
   });
 };
 
-export const formatLanguage = (langCode: string | null | undefined) => {
+export const formatLanguage = (langCode: string | null | undefined): string => {
   if (!langCode) return "Não informado";
 
   const name = new Intl.DisplayNames(["pt-BR"], {
@@ -54,8 +54,8 @@ export const formatLanguage = (langCode: string | null | undefined) => {
   return name[0].toUpperCase() + name.slice(1);
 };
 
-export const formatCountry = (countries: string[] = []) => {
-    if (!Array.isArray(countries) || countries.length === 0) {
+export const formatCountry = (countries: string[] = []): string[] | string => {
+    if (countries.length === 0) {
     return "Não informado";
   }
 
@@ -63,5 +63,10 @@ export const formatCountry = (countries: string[] = []) => {
     type: "region",
   });
 
-  return countries.map((code) => formatter.of(code));
+  const result = countries
+    .map((code) => formatter.of(code))
+    .filter((country): country is string => country !== undefined);
+
+  return result.length > 0 ? result : "Não informado";
+
 };

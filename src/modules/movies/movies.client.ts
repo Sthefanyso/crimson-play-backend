@@ -1,10 +1,9 @@
-const LANGUAGE = "pt-BR";
-
 // Helper para requisições à TMDB com tratamento de erros
 const fetchTmdbData = async (path: string, params: string = "") => {
   // Variáveis de ambiente para montar as URLs de requisição à TMDB
   const BASE_URL = process.env.TMDB_BASE_URL;
   const API_KEY = process.env.TMDB_API_KEY;
+  const LANGUAGE = "pt-BR";
 
   const url = `${BASE_URL}${path}?api_key=${API_KEY}&language=${LANGUAGE}${params}`;
   const response = await fetch(url);

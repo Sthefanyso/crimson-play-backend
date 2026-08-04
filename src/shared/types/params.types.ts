@@ -1,17 +1,17 @@
-export type MovieParams = {
+export interface MovieParams {
     movieId: string;
 };
 
-export type SeriesParams = {
+export interface SeriesParams {
     seriesId: string;
 };
 
-export type SeasonParams = {
+export interface SeasonParams {
     seriesId: string;
     seasonNumber: string;
 };
 
-export type EpisodeParams = {
+export interface EpisodeParams {
     seriesId: string;
     seasonNumber: string;
     episodeNumber: string;
