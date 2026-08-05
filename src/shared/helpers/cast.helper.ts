@@ -1,4 +1,6 @@
 import { buildImageUrl } from "./media.helper";
+import type { TMDBActor } from "../types/tmdb.types";
+
 
 // Função para formatar o papel do ator com base na ordem de crédito
 const formatCastRole = (order: number | null | undefined) => {
@@ -11,7 +13,7 @@ const formatCastRole = (order: number | null | undefined) => {
 };
 
 // Função para mapear os dados do elenco
-const mapActor = (actor: any) => ({
+const mapActor = (actor: TMDBActor) => ({
   id: actor.id,
   name: actor.name || "Não informado",
   character: actor.character || "Não informado",
@@ -20,12 +22,12 @@ const mapActor = (actor: any) => ({
 });
 
 // Função para formatar o elenco principal de um filme ou série, limitando a 10 atores
-export const formatCast = (cast: any[] = [], limit: number = 10) => {
+export const formatCast = (cast: TMDBActor[] = [], limit: number = 10) => {
   return cast.slice(0, limit).map(mapActor);
 };
 
 // Função para formatar os atores convidados de um episódio, limitando a 10 atores
-export const formatGuestStars = (guestStars: any[] = [], limit: number = 10) => {
+export const formatGuestStars = (guestStars: TMDBActor[] = [], limit: number = 10) => {
   return guestStars.slice(0, limit).map((actor) => ({
     id: actor.id,
     name: actor.name || "Não informado",

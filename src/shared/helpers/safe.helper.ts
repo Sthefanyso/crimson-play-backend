@@ -1,13 +1,9 @@
-export const safeString = (value: string | null | undefined, fallback = "Não informado"): string => {
-  return value ? value : fallback;
-};
-
 export const safeOverview = (value: string | null | undefined): string => {
   return value || "Sinopse não disponível.";
 };
 
 export const safeRating = (value: number | null | undefined): number => {
-  return value ? Number(value.toFixed(1)) : 0;
+  return value == null ? 0 : Number(value.toFixed(1));
 };
 
 export const safeMap = (value: any[] | null | undefined, callback: (item: any) => any) => {

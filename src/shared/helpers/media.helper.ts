@@ -1,3 +1,5 @@
+import type { TMDBImage, TMDBVideo } from "../types/tmdb.types";
+
 // Configuração de imagens da TMDB
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -7,8 +9,8 @@ export const buildImageUrl = (path: string | null | undefined): string | null =>
 };
 
 // Formata lista de imagens
-export const formatImagesByType = (images: any[] = []): { url: string | null }[] => {
-  if (!Array.isArray(images) || images.length === 0) return [];
+export const formatImagesByType = (images: TMDBImage[] = []): { url: string | null }[] => {
+  if (images.length === 0) return [];
   
   return images.map((image) => ({
     url: buildImageUrl(image.file_path),
@@ -16,8 +18,8 @@ export const formatImagesByType = (images: any[] = []): { url: string | null }[]
 };
 
 // Formata lista de vídeos
-export const formatVideosByType = (videos: any[] = [], type: string) => {
-  if (!Array.isArray(videos) || videos.length === 0) return [];
+export const formatVideosByType = (videos: TMDBVideo[] = [], type: string) => {
+  if (videos.length === 0) return [];
 
   return videos
     .filter((video) => video.site === "YouTube" && video.type === type)
