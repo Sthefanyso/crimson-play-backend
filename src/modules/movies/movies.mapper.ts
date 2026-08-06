@@ -1,8 +1,13 @@
+// Importa as interfaces 
+import { TMDBGenre, TMDBCompany, TMDBMovieDetails } from "../../shared/types/tmdb.types";
+import { TMDBMovieList, TMDBMoviePreview, MovieDetails} from "../../shared/types/movies.types";
+
 // Importa as funções auxiliares de formatação de dados
 import { getDirector, getAgeRating} from "./movies.helper";
 
 import { buildImageUrl, formatImagesByType, formatVideosByType} from "../../shared/helpers/media.helper";
 
+// Importa as funções auxiliares de formatação de campos
 import {
   formatRuntime,
   formatDate,
@@ -19,7 +24,7 @@ import {
   safeMap } from "../../shared/helpers/safe.helper";
 
 // Função para formatar a lista de filmes
-export const formatMovieList = (movies: any[] = []) => {
+export const formatMovieList = (movies: TMDBMovieList[] = []) => {
   return {
     filmes: movies.map((movie) => ({
       id: movie.id,
@@ -32,7 +37,7 @@ export const formatMovieList = (movies: any[] = []) => {
 };
 
 // Função para formatar o DTO de Preview
-export const MoviePreviewDto = (data: any) => {
+export const MoviePreviewDto = (data: TMDBMoviePreview) => {
   return {
     mediaType: "movie",
     id: data.id,
@@ -42,13 +47,13 @@ export const MoviePreviewDto = (data: any) => {
     duration: formatRuntime(data.runtime),
     year: (data.release_date?.split("-")[0]) || "Não informado", // extrai apenas o ano da data de lançamento
     rating: safeRating(data.vote_average),
-    genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros do filme
+    genres: safeMap(data.genres, (genre: TMDBGenre) => genre.name), // lista os gêneros do filme
     overview: safeOverview(data.overview),
   };
 };
 
 // Função para formatar o DTO de Details
-export const MovieDetailsDto = (data: any) => {
+export const MovieDetailsDto = (data: TMDBMovieDetails) => {
   return {
     mediaType: "movie",
 
@@ -62,7 +67,7 @@ export const MovieDetailsDto = (data: any) => {
       director: getDirector(data.credits),
       duration: formatRuntime(data.runtime),
       rating: safeRating(data.vote_average),
-      genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros do filme
+      genres: safeMap(data.genres, (genre: TMDBGenre) => genre.name), // lista os gêneros do filme
       overview: safeOverview(data.overview),
     },
 
@@ -72,13 +77,13 @@ export const MovieDetailsDto = (data: any) => {
       releaseDate: formatDate(data.release_date), // data de lançamento completa
       status: formatStatus(data.status), // status do filme (ex: "Released", "Post Production", etc.)
       title: data.title,
-      titleOriginal: (data.original_title) || "Título original não disponível",
+      titleOriginal: (data.title_original) || "Título original não disponível",
       director: getDirector(data.credits),
-      production: safeMap(data.production_companies, (company: any) => company.name).join(", ") || "Não informado", // lista as produtoras separadas por vírgula
+      production: safeMap(data.production_companies, (company: TMDBCompany) => company.name).join(", ") || "Não informado", // lista as produtoras separadas por vírgula
       duration: formatRuntime(data.runtime),
-      ageRating: getAgeRating(data.release_dates),
-      languageOriginal: formatLanguage(data.original_language),
-      genres: safeMap(data.genres, (genre: any) => genre.name).join(", ") || "Não informado", // lista os gêneros separados por vírgula
+      ageRating: getAgeRating(data.release_date),
+      languageOriginal: formatLanguage(data.language_original),
+      genres: safeMap(data.genres, (genre: TMDBGenre) => genre.name).join(", ") || "Não informado", // lista os gêneros separados por vírgula
       currency: "USD",
       budget: formatCurrency(data.budget),
       revenue: formatCurrency(data.revenue),

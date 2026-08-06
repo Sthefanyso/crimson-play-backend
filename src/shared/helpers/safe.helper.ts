@@ -6,9 +6,12 @@ export const safeRating = (value: number | null | undefined): number => {
   return value == null ? 0 : Number(value.toFixed(1));
 };
 
-export const safeMap = (value: any[] | null | undefined, callback: (item: any) => any) => {
-  if (!Array.isArray(value) || value.length === 0) return [];
+export const safeMap = <T, R>(
+  value: T[] | null | undefined,
+  callback: (item: T) => R
+): R[] => {
+  if (!value?.length) return [];
+
   return value.map(callback);
 };
-
 
