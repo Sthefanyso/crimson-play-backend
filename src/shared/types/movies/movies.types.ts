@@ -1,25 +1,4 @@
-import { TMDBGenre } from "../../shared/types/tmdb.types";
-
-export interface TMDBMovieList {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  release_date: string | null;
-  vote_average: number | null;
-}
-
-export interface TMDBMoviePreview {
-  mediaType: "movie";
-  id: number;
-  title: string;
-  poster_path: string | null;
-  credits: string | null;
-  runtime: number | null;
-  release_date: string | null;
-  vote_average: number | null;
-  genres: TMDBGenre[] | null;
-  overview: string | null;
-}
+import { TMDBGenre } from "../tmdb.types";
 
 export interface MovieDetails {
   mediaType: "movie";

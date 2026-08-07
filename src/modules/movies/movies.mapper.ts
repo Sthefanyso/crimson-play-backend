@@ -1,6 +1,6 @@
 // Importa as interfaces 
-import { TMDBGenre, TMDBCompany, TMDBMovieDetails } from "../../shared/types/tmdb.types";
-import { TMDBMovieList, TMDBMoviePreview, MovieDetails} from "../../shared/types/movies.types";
+import { TMDBGenre, TMDBCompany} from "../../shared/types/tmdb.types";
+import { TMDBMovieList, TMDBMoviePreview, TMDBMovieDetails} from "../../shared/types/movies/tmdb.movies";
 
 // Importa as funções auxiliares de formatação de dados
 import { getDirector, getAgeRating} from "./movies.helper";
