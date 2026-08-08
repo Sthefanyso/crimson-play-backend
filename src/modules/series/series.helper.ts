@@ -1,5 +1,5 @@
 // Função para formatar os anos de exibição de uma série
-export const formatSeriesYears = (firstAirDate: string | undefined, lastAirDate: string | undefined) => {
+export const formatSeriesYears = (firstAirDate: string | null | undefined, lastAirDate: string | null | undefined) => {
   const startYear = firstAirDate?.split("-")[0];
 
   if (!startYear) return "Não informado";
@@ -12,7 +12,7 @@ export const formatSeriesYears = (firstAirDate: string | undefined, lastAirDate:
 };
 
 // Função para mapear o tipo de série para português
-export const formatSeriesType = (type: string | undefined) => {
+export const formatSeriesType = (type: string | null |undefined) => {
   if (!type) return "Não informado";
 
   const typeMap: Record<string, string> = {
@@ -28,8 +28,8 @@ export const formatSeriesType = (type: string | undefined) => {
 };
 
 // Função para formatar o tempo de duração de um episódio
-export const formatEpisodeRuntime = (episodeRunTime: number[] = []) => {
-  const runtime = episodeRunTime[0];
+export const formatEpisodeRuntime = (episodeRunTime: number | number[] | null | undefined) => {
+  const runtime = Array.isArray(episodeRunTime) ? episodeRunTime[0] : episodeRunTime;
 
   if (!runtime) return "Não informado";
 

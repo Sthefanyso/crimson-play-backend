@@ -1,3 +1,9 @@
+// importa as interfaces
+import { TMDBSeriesList, TMDBSeriesPreview, TMDBSeriesDetails, TMDBSeasons, TMDBSeason, TMDBEpisode   } from "../../shared/types/series/tmdb.series";
+
+// importa as funções auxiliares de formatação de dados
+import { TMDBGenre, TMDBCompany} from "../../shared/types/tmdb.types";
+
 // Importa as funções auxiliares de formatação de dados
 import {
   buildImageUrl,
@@ -31,7 +37,7 @@ import {
 } from "../../shared/helpers/safe.helper";
 
 // Função para formatar o DTO de lista de séries
-export const formatSeriesList = (series: any[] = []) => {
+export const formatSeriesList = (series: TMDBSeriesList[] = []) => {
   return series.map((serie) => ({
     mediaType: "series",
     id: serie.id,
@@ -43,7 +49,7 @@ export const formatSeriesList = (series: any[] = []) => {
 };
 
 // Função para formatar o DTO de Preview de série
-export const SeriesPreviewDto = (data: any) => {
+export const SeriesPreviewDto = (data: TMDBSeriesPreview) => {
   return {
     mediaType: "series",
     id: data.id,
@@ -53,13 +59,13 @@ export const SeriesPreviewDto = (data: any) => {
     episodes: data.number_of_episodes || 0,
     duration: formatSeriesYears(data.first_air_date, data.last_air_date), // formata os anos de exibição da série
     rating: safeRating(data.vote_average),
-    genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros da série
+    genres: safeMap(data.genres, (genre: TMDBGenre) => genre.name), // lista os gêneros da série
     overview: safeOverview(data.overview),
   };
 };
 
 // Função para formatar o DTO de Details de série
-export const SeriesDetailsDto = (data: any) => {
+export const SeriesDetailsDto = (data: TMDBSeriesDetails) => {
   return {
     mediaType: "series",
 
@@ -71,7 +77,7 @@ export const SeriesDetailsDto = (data: any) => {
       poster: buildImageUrl(data.poster_path),
       duration: formatSeriesYears(data.first_air_date, data.last_air_date), // extrai apenas o ano da data de lançamento
       rating: safeRating(data.vote_average),
-      genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros da série
+      genres: safeMap(data.genres, (genre: TMDBGenre) => genre.name), // lista os gêneros da série
       overview: safeOverview(data.overview),
     },
 
@@ -86,17 +92,17 @@ export const SeriesDetailsDto = (data: any) => {
       originCountry: formatCountry(data.origin_country),
       type: formatSeriesType(data.type) || "Não informado",
       status: formatStatus(data.status),
-      production: safeMap(data.production_companies, (company: any) => company.name),
+      production: safeMap(data.production_companies, (company:  TMDBCompany) => company.name),
       ageRating: getSeriesAgeRating(data.content_ratings),
       seasons: data.number_of_seasons || 0,
       episodes: data.number_of_episodes || 0,
-      genres: safeMap(data.genres, (genre: any) => genre.name), // lista os gêneros da série
+      genres: safeMap(data.genres, (genre: TMDBGenre) => genre.name), // lista os gêneros da série
       episodeRuntime: formatEpisodeRuntime(data.episode_run_time),
     },
 
     // Seção Temporadas
     // Lista de temporadas da série para a seção de detalhes
-    seasons: safeMap(data.seasons, (season: any) => ({
+    seasons: safeMap(data.seasons, (season: TMDBSeasons) => ({
       mediaType: "season",
       id: season.id,
       name: season.name,
@@ -128,7 +134,7 @@ export const SeriesDetailsDto = (data: any) => {
   };
 };
 
-export const SeasonDetailsDto = (data: any) => {
+export const SeasonDetailsDto = (data: TMDBSeason) => {
   return {
     mediaType: "season",
 
@@ -142,7 +148,7 @@ export const SeasonDetailsDto = (data: any) => {
       overview: safeOverview(data.overview),
     },
 
-    episodes: safeMap(data.episodes, (episode: any) => ({
+    episodes: safeMap(data.episodes, (episode: TMDBEpisode) => ({
       id: episode.id,
       number: episode.episode_number || 0,
       name: data.name || `Episódio ${data.episode_number || ""}`.trim(),
@@ -150,7 +156,7 @@ export const SeasonDetailsDto = (data: any) => {
   };
 };
 
-export const EpisodeDetailsDto = (data: any) => {
+export const EpisodeDetailsDto = (data: TMDBEpisode) => {
   const director = data.credits?.crew?.find(
     (person: any) => person.job === "Director",
   );

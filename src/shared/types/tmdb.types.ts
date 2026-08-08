@@ -41,6 +41,24 @@ export interface TMDBCrew {
   profile_path: string | null;
 }
 
+export interface TMDBCast {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+  order?: number;
+}
+
+export interface TMDBGuestStars {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+  order?: number;
+  credit_id: string;
+  episode_count: number;
+}
+
 // interface de companias
 export interface TMDBCompany {
   id: number;
